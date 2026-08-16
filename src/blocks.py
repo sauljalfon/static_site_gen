@@ -1,6 +1,6 @@
 from enum import Enum
 
-from htmlnode import HTMLNode, LeafNode, ParentNode
+from htmlnode import HTMLNode, ParentNode
 from text_to_textnodes import text_to_textnodes
 from textnode import TextNode, TextType, text_node_to_html_node
 
@@ -15,7 +15,7 @@ def markdown_to_html_node(markdown):
             children.append(ParentNode("p", text_to_children(text)))
         elif block_type == BlockType.heading:
             heading_level = len(block) - len(block.lstrip("#"))
-            text = block[heading_level + 1:]
+            text = block[heading_level + 1 :]
             children.append(ParentNode(f"h{heading_level}", text_to_children(text)))
         elif block_type == BlockType.code:
             text = block.removeprefix("```").removesuffix("```").lstrip()

@@ -1,9 +1,12 @@
 import os
 import shutil
 
+from generator import generate_pages_recursive
+
 
 def main():
     source_dir_to_dest_dir("static", "public")
+    generate_pages_recursive("content", "template.html", "public")
 
 
 def source_dir_to_dest_dir(source_dir: str, dest_dir: str) -> None:
