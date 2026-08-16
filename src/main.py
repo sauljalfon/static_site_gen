@@ -1,17 +1,21 @@
 import os
 import shutil
+import sys
 
 from generator import generate_pages_recursive
 
 
 def main():
-    source_dir_to_dest_dir("static", "public")
-    generate_pages_recursive("content", "template.html", "public")
+
+    basepath = sys.argv[1] if len(sys.argv) > 1 else ""
+
+    source_dir_to_dest_dir("static", "docs")
+    generate_pages_recursive("content", "template.html", "docs", basepath)
 
 
 def source_dir_to_dest_dir(source_dir: str, dest_dir: str) -> None:
     if not os.path.exists(dest_dir):
-        raise RuntimeError(f"Destination directory {dest_dir} does not exist")
+        os.makedirs(dest_dir)
 
     shutil.rmtree(dest_dir)
     shutil.copytree(source_dir, dest_dir)
